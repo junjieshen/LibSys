@@ -1,0 +1,31 @@
+<p>
+<h2><%= @suggestion.title %></h2>
+</p>
+
+<p>
+  <strong> ISBN:</strong>
+  <%= @suggestion.ISBN %>
+</p>
+<p>
+  <strong> Description:</strong>
+  <%= @suggestion.description %>
+</p>
+
+<p>
+  <strong> Authors:</strong>
+  <%= @suggestion.authors %>
+</p>
+<p>
+  <strong> Suggested By:</strong>
+  <%= @suggestion.member_email %>
+</p>
+
+<% if current_user.class.to_s == 'Admin' %>
+  <%= link_to 'Approve', approve_suggestion_path(@suggestion, :suggestion_id => @suggestion.id) %>
+<% end %>
+<br>
+<% if current_user.class.to_s == 'Admin' %>
+  <%= link_to 'Back', suggestions_url %>
+<% else %>
+  <%= link_to 'Back', books_url %>
+<% end %>

@@ -1,0 +1,35 @@
+  
+<p>
+  <strong>Name:</strong>
+  <%= @member.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @member.email %>
+</p>
+
+  <strong>Checked Out Books:</strong>
+  <table>
+    <tr>
+      <th>#</th>
+      <th>Book</th>
+    </tr>
+    <% id=0 %>
+    <% @book_list.each do |bk_id| %>
+      <tr>
+        <td><%= id+=1 %></td>
+        <td><%= Book.find(bk_id).title %></td>
+        <td><%= link_to 'Return', return_book_path(@member, :member_id => @member.id, :book_id => bk_id), 
+                                  method: :post %></td>
+      </tr>
+    <% end %>
+  </table>
+
+
+<%= link_to 'Checkout History', list_member_history_path(@member, :member_email => @member.email) %>
+<% if session[:is_admin?] %>
+<%= link_to 'Back', members_path %>
+<% else %>
+    <%= link_to 'Back', books_path %>
+<% end %>

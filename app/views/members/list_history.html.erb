@@ -1,0 +1,30 @@
+<p>
+<h2><%= "Checkout History of \"" + @member.name + "\""%></h2>
+</p>
+<% if @history_list.any? %>
+  <table>
+    <tr>
+      <th>#</th>
+      <th>Book</th>
+      <th>Checkout Time</th>
+      <th>Return Time</th>
+    </tr>
+    <% id=0 %>
+    <% @history_list.each do |hs| %>
+      <tr>
+        <td><%= id+=1 %></td>
+        <td><%= Book.find(hs.book_id).title %></td>
+        <td><%= hs.checkout_at %></td>
+        <% if hs.return_at == nil %>
+          <td> <center>-</center> </td>
+        <% else %>
+          <td><%= hs.return_at %></td>
+        <% end %>
+      <tr>
+    <% end %>
+  </table>
+<% else %>
+  <h3>No Checkout History found.</h3>
+<% end %>
+
+<%= link_to 'Back', member_path(@member) %>

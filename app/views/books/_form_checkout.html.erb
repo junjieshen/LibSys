@@ -1,0 +1,10 @@
+<%= form_tag checkout_path do %>
+  <p>
+  <% if @is_admin %>
+    <%= label_tag(:item, "Member Email: ") %>
+    <%= text_field_tag :item %>
+  <% end %>
+  <%= hidden_field_tag :book_id, @book.id %>
+  <%= submit_tag "CheckOut" %>
+  </p>
+<% end %>

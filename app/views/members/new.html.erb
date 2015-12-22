@@ -1,0 +1,9 @@
+<h1>New Member</h1>
+
+<%= render 'form' %>
+
+<% if !Rails.application.config.directory_page.nil? %>
+<%= link_to 'Back', books_path %>
+<% else %>
+    <%= link_to 'Back', root_url %>
+<% end %>

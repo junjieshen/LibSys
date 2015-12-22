@@ -1,0 +1,39 @@
+<h1> Listing Suggestions </h1>
+<% if @suggestions.exists? %>
+  <table>
+    <tr>
+      <th>#</th>
+      <th>ISBN</th>
+      <th>Title</th>
+      <th>Suggested By</th>
+    </tr>
+    <% id=0 %>
+    <% @suggestions.each do |suggestion| %>
+      <tr>
+        <td><%= id+=1 %></td>
+        <td><%= suggestion.ISBN %></td>
+        <td><%= suggestion.title %></td>
+        <td><%= suggestion.member_email %></td>
+        <td><%= link_to 'Show', suggestion_path(suggestion) %></td>
+        <td><%= link_to 'Approve', approve_suggestion_path(suggestion) %></td>
+        <td><%= link_to 'Delete', suggestion_path(suggestion), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+      <tr>
+  </table>
+<% else %>
+  <h3>No suggestions in our Library :'(</h3>
+<% end %>
+<% if current_user.class.to_s == 'Member' %>
+  <td><%= link_to 'View my profile', member_path(current_user) %></td>
+  <td><%= link_to 'Edit my profile', edit_member_path(current_user) %></td>
+  <td><%= link_to 'New Suggestion', new_suggestion_path(current_user) %></td>
+<% end %>
+<% if current_user.class.to_s == 'Admin' %>
+  <td><%= link_to 'New book', new_book_url %></td>
+  <td><%= link_to 'View my profile', admin_path(current_user) %></td>
+  <td><%= link_to 'Edit my profile', edit_admin_path(current_user) %></td>
+  <td><%= link_to 'Books List', books_path%></td>
+  <td><%= link_to 'Members List', members_path %></td>
+  <td><%= link_to 'Admins List', admins_path %></td>
+<% end %>
+<%= link_to "Log out", logout_path, method: "delete" %>

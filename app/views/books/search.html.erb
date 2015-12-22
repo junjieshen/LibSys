@@ -1,0 +1,27 @@
+<%= render 'form_search' %>
+<% if !@entry.nil? %>
+  <% id=0 %>
+  <h4><%= @entry.count %> entries found</h4>
+  <% @entry.each do |x| %>
+    <p>
+    <h4><%= id+=1 %>. <%= x.title %></h4>
+    </p>
+    <p>
+    ISBN : <%= x.ISBN %>
+    </p>
+    <p>
+    Description : <%= x.description %>
+    </p>
+    <p>
+    Authors : <%= x.authors %>
+    </p>
+    <p>
+    Status : <%= x.status %>
+    </p>
+    <%= link_to 'Show', "/books/#{x.id}" %>
+  <% end %>
+<% else %>
+  <h3>No Books found. Please Try Again</h3>
+<% end %>
+
+<br><%= link_to 'Back', books_path %>

@@ -1,0 +1,43 @@
+<p>
+<h2><%= @book.title %></h2>
+</p>
+
+<p>
+  <strong> ISBN:</strong>
+  <%= @book.ISBN %>
+</p>
+<p>
+  <strong> Description:</strong>
+  <%= @book.description %>
+</p>
+
+<p>
+  <strong> Authors:</strong>
+  <%= @book.authors %>
+</p>
+<p>
+  <strong> Status:</strong>
+  <%= @book.status %>
+</p>
+
+<% if @book.status != "Available" and session[:is_admin?] %>
+  <p>
+    <strong> Holder:</strong>
+    <%= @holder.name %>
+  </p>
+<% end %>
+<% if session[:user_id] and subscribed?(@book.id) != true and @book.status != "Available"%>
+  <%= link_to "Subscribe", :controller => :books, :action => :subscribe %>
+<% else %>
+  <% if session[:user_id] and @book.status != "Available" and subscribed?(@book.id) == true %>
+    <%= link_to "Unsubscribe", :controller => :books, :action => :unsubscribe %>
+  <% end %>
+<% end %>
+<%= link_to 'Checkout History', list_book_history_path(@book, :book_id => @book.id) %>
+
+<br>
+<% if session[:is_admin?] %>
+<%= link_to 'Edit', edit_book_path(@book) %>
+<% end %>
+<%= link_to 'Back', books_url %>
+

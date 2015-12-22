@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: super admin
+  email: super_admin@ncsu.edu
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  preadmin: true
+  
+two:
+  name: Foo Bar
+  email: admin_foo@ncsu.edu
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+

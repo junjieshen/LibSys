@@ -1,0 +1,24 @@
+<%= render 'form_checkout' %>
+<% if flash[:error] %>
+    <div class="error" style="color:red"><%= flash[:error] %></div>
+  <% end %>
+<p>
+  ISBN : 
+  <%= @book.ISBN %>
+</p>
+
+<p>
+  Title : 
+  <%= @book.title %>
+</p>
+
+<p>
+  Description :
+  <%= @book.description %>
+</p>
+
+<p>
+  Authors :
+  <%= @book.authors %>
+</p>
+<%= link_to 'Back', books_path %>

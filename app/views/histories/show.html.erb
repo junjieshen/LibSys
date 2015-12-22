@@ -1,0 +1,17 @@
+<p>
+  <strong>Book:</strong>
+  <%= @history.book_id %>
+</p>
+
+<p>
+  <strong>Member email:</strong>
+  <%= @history.member_email %>
+</p>
+
+<p>
+  <strong>Action:</strong>
+  <%= @history.action %>
+</p>
+
+<%= link_to 'Edit', edit_history_path(@history) %> |
+<%= link_to 'Back', histories_path %>

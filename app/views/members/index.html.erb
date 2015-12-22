@@ -1,0 +1,42 @@
+<h1>Listing Members</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><%= member.name %></td>
+        <td><%= member.email %></td>
+
+        <td><%= link_to 'Show', member %></td>
+        <td><% if current_user.class.to_s == 'Admin' %></td>
+              <td><%= link_to 'Delete', member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><% end%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<td><% if current_user.class.to_s == 'Member' %></td>
+<td><%= link_to 'Edit my profile', edit_member_path(current_user) %></td>
+<td><%= link_to 'New Suggestion', new_suggestion_path(current_user) %></td>
+      <td><% end %></td>
+
+  <td><% if current_user.class.to_s == 'Admin' %></td>
+        <% Rails.application.config.direcory_page = true %>
+        <%= link_to 'New Member', new_member_path %>
+        <td><%= link_to 'Admin list', admins_path(current_user) %></td>
+        <td><%= link_to 'Suggestions list', suggestions_path %></td>
+          <%= link_to 'Books List', books_path%>
+
+        <td><% end%></td>
+    <%= link_to "Log out", logout_path, method: "delete" %>

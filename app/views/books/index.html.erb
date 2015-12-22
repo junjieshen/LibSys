@@ -1,0 +1,48 @@
+<h1> Listing Books </h1>
+<p>
+<%= render 'form_search' %>
+</p>
+<% if @books.exists? %>
+  <table>
+    <tr>
+      <th>#</th>
+      <th>ISBN</th>
+      <th>Title</th>
+      <th>Status</th>
+    </tr>
+    <% id=0 %>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= id+=1 %></td>
+        <td><%= book.ISBN %></td>
+        <td><%= book.title %></td>
+        <td><%= book.status %></td>
+        <td><%= link_to 'Show', book_path(book) %></td>
+        <% if book.status == "Available" %>
+          <td><%= link_to 'Borrow', borrow_path(:book_id => book.id), method: :post %></td>
+        <% end %>
+        <td><% if session[:is_admin?] %></td>
+        <td><%= link_to 'Edit', edit_book_path(book) %></td>
+        <td><%= link_to 'Delete', book_path(book), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><% end %></td>
+      <tr>
+    <% end %>
+  </table>
+<% else %>
+  <h3>No Books in our Library :'(</h3>
+<% end %>
+
+<td><% if current_user.class.to_s == 'Member' %></td>
+      <td><%= link_to 'View my profile', member_path(current_user) %></td>
+      <td><%= link_to 'Edit my profile', edit_member_path(current_user) %></td>
+      <td><%= link_to 'New Suggestion', new_suggestion_path(current_user) %></td>
+      <td><% end %></td>
+  <td><% if current_user.class.to_s == 'Admin' %></td>
+    <td><%= link_to 'New book', new_book_url %></td>
+    <td><%= link_to 'View my profile', admin_path(current_user) %></td>
+    <td><%= link_to 'Edit my profile', edit_admin_path(current_user) %></td>
+    <td><%= link_to 'Suggestions List', suggestions_path %></td>
+    <td><%= link_to 'Members List', members_path %></td>
+    <td><%= link_to 'Admins List', admins_path %></td>
+        <% end %>
+<%= link_to "Log out", logout_path, method: "delete" %>
